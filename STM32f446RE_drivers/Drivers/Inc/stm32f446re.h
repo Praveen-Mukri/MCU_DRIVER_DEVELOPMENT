@@ -77,7 +77,7 @@ typedef struct
     volatile uint32_t BSRR;         /*< GPIO port bit set/reset register                        OffSet: 0x18 */
     volatile uint32_t LCKR;         /*< GPIO port configuration lock register                   OffSet: 0x1c */
     volatile uint32_t AFR[2];       /*< GPIO alternate function low and High register           OffSet: 0x20 */
-}GPIO_RgeDef_t;
+}GPIO_RegDef_t;
 
 /*
  * RCC Register structure
@@ -123,14 +123,14 @@ typedef struct
 /*
  * Peripherals definitions ( Peripheral base addresses typecasted to xxx_RegDef_t )
  */
-#define GPIOA ((GPIO_RgeDef_t*) GPIOA_BASEADDR)
-#define GPIOB ((GPIO_RgeDef_t*) GPIOB_BASEADDR)
-#define GPIOC ((GPIO_RgeDef_t*) GPIOC_BASEADDR)
-#define GPIOD ((GPIO_RgeDef_t*) GPIOD_BASEADDR)
-#define GPIOE ((GPIO_RgeDef_t*) GPIOE_BASEADDR)
-#define GPIOF ((GPIO_RgeDef_t*) GPIOF_BASEADDR)
-#define GPIOG ((GPIO_RgeDef_t*) GPIOG_BASEADDR)
-#define GPIOH ((GPIO_RgeDef_t*) GPIOH_BASEADDR)
+#define GPIOA ((GPIO_RegDef_t*) GPIOA_BASEADDR)
+#define GPIOB ((GPIO_RegDef_t*) GPIOB_BASEADDR)
+#define GPIOC ((GPIO_RegDef_t*) GPIOC_BASEADDR)
+#define GPIOD ((GPIO_RegDef_t*) GPIOD_BASEADDR)
+#define GPIOE ((GPIO_RegDef_t*) GPIOE_BASEADDR)
+#define GPIOF ((GPIO_RegDef_t*) GPIOF_BASEADDR)
+#define GPIOG ((GPIO_RegDef_t*) GPIOG_BASEADDR)
+#define GPIOH ((GPIO_RegDef_t*) GPIOH_BASEADDR)
 
 #define RCC   ((RCC_RegDef_t*) RCC_BASEADDR)
 
@@ -188,5 +188,27 @@ typedef struct
 #define SPI2_PLCK_DI() (RCC->APB1ENR &= ~( 1 << 14 ))
 #define SPI3_PLCK_DI() (RCC->APB1ENR &= ~( 1 << 15 ))
 #define SPI4_PLCK_DI() (RCC->APB2ENR &= ~( 1 << 13 ))
+
+/*
+ *  Macros to reset GPIOx peripherals
+ */
+#define GPIOA_REG_RESET()               do{ (RCC->AHB1RSTR |= (1 << 0)); (RCC->AHB1RSTR &= ~(1 << 0)); }while(0)
+#define GPIOB_REG_RESET()               do{ (RCC->AHB1RSTR |= (1 << 1)); (RCC->AHB1RSTR &= ~(1 << 1)); }while(0)
+#define GPIOC_REG_RESET()               do{ (RCC->AHB1RSTR |= (1 << 2)); (RCC->AHB1RSTR &= ~(1 << 2)); }while(0)
+#define GPIOD_REG_RESET()               do{ (RCC->AHB1RSTR |= (1 << 3)); (RCC->AHB1RSTR &= ~(1 << 3)); }while(0)
+#define GPIOE_REG_RESET()               do{ (RCC->AHB1RSTR |= (1 << 4)); (RCC->AHB1RSTR &= ~(1 << 4)); }while(0)
+#define GPIOF_REG_RESET()               do{ (RCC->AHB1RSTR |= (1 << 5)); (RCC->AHB1RSTR &= ~(1 << 5)); }while(0)
+#define GPIOG_REG_RESET()               do{ (RCC->AHB1RSTR |= (1 << 6)); (RCC->AHB1RSTR &= ~(1 << 6)); }while(0)
+#define GPIOH_REG_RESET()               do{ (RCC->AHB1RSTR |= (1 << 7)); (RCC->AHB1RSTR &= ~(1 << 7)); }while(0)
+
+/*
+ * Some generic macro
+ */
+#define ENABLE              1
+#define DISABLE             0
+#define SET                 ENABLE
+#define RESET               DISABLE
+#define GPIO_PIN_SET        ENABLE
+#define GPIO_PIN_RESET      DISABLE
 
 #endif /* INC_STM32F446RE_H_ */
