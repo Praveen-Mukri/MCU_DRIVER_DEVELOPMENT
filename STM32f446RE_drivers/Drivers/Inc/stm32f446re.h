@@ -82,11 +82,11 @@
 /*
  *  Base address of peripherals which are hanging on APB2
  */
-#define EXTI_BASEADDR               (AHB2PERIPH_BASEADDR + 0x3C00)
-#define SPI1_BASEADDR               (AHB2PERIPH_BASEADDR + 0x3000)
-#define SYSCFG_BASEADDR             (AHB2PERIPH_BASEADDR + 0x3800)
-#define USART1_BASEADDR             (AHB2PERIPH_BASEADDR + 0x1000)
-#define USART6_BASEADDR             (AHB2PERIPH_BASEADDR + 0x1400)
+#define EXTI_BASEADDR               (APB2PERIPH_BASEADDR + 0x3C00)
+#define SPI1_BASEADDR               (APB2PERIPH_BASEADDR + 0x3000)
+#define SYSCFG_BASEADDR             (APB2PERIPH_BASEADDR + 0x3800)
+#define USART1_BASEADDR             (APB2PERIPH_BASEADDR + 0x1000)
+#define USART6_BASEADDR             (APB2PERIPH_BASEADDR + 0x1400)
 
 
 /*************************** PERIPHERAL REGISTER DEFINITION STRUCTURE *************************/
