@@ -1,0 +1,56 @@
+/*
+ * 003Led_Button_Interrupt.c
+ *
+ *  Created on: 28-Sep-2020
+ *      Author: praveen mukri
+ */
+
+#include "stm32f446re.h"
+#include "STM32F446RE_gpio_driver.h"
+
+#define LOW     0
+#define BUTTON_PRESSED LOW
+
+int main()
+{
+    GPIO_Handle_t GpioLed1;
+    GPIO_Handle_t GpioButton;
+
+    // Push-Pull Configuration
+    GpioLed1.pGPIOx = GPIOA;
+    GpioLed1.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_6;
+    GpioLed1.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
+    GpioLed1.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
+    GpioLed1.GPIO_PinConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
+    GpioLed1.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
+
+    // User Button is at PC13
+    GpioButton.pGPIOx = GPIOC;
+    GpioButton.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_13; // PC13 on board User Button
+    GpioButton.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IT_FT;
+    GpioButton.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
+    GpioButton.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
+
+    GPIO_PeriClockControl(GPIOA, ENABLE);
+    GPIO_PeriClockControl(GPIOC, ENABLE);
+    GPIO_Init(&GpioLed1);
+    GPIO_Init(&GpioButton);
+
+    GPIO_IRQPriorityConfig(IRQ_NO_EXTI15_10, 47);
+    GPIO_IRQConfig(IRQ_NO_EXTI15_10, ENABLE);
+
+    while(1)
+    {
+
+    }
+
+    return 0;
+
+}
+
+
+void EXTI15_10_IRQHandler(void)
+{
+    GPIO_IRQHandling(GPIO_PIN_NO_13);
+    GPIO_ToggleOutputPin(GPIOA, GPIO_PIN_NO_6);
+}
