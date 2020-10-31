@@ -8,7 +8,11 @@
 #ifndef INC_STM32F446RE_H_
 #define INC_STM32F446RE_H_
 
+#include "stddef.h"
 #include "stdint.h"
+#include "stdio.h"
+
+#define __weak __attribute__((weak))
 
 /****************************** Processor specific Details *******************************
  * ARM Cortex M4 Processor NVIC ISERx register Addresses
@@ -314,6 +318,9 @@ typedef struct
 #define IRQ_NO_EXTI4        10
 #define IRQ_NO_EXTI9_5      23
 #define IRQ_NO_EXTI15_10    40
+#define IRQ_NO_SPI1         35
+#define IRQ_NO_SPI2         36
+#define IRQ_NO_SPI3         51
 
 /*
  * macros for all the possible priority levels
@@ -355,6 +362,16 @@ typedef struct
 #define SPI_CR1_BIDIOE                  14
 #define SPI_CR1_BIDIMODE                15
 
+/*
+ * Bit position definitions SPI_CR2
+ */
+#define SPI_CR2_RXDMAEN                 0
+#define SPI_CR2_TXDMAEN                 1
+#define SPI_CR2_SSOE                    2
+#define SPI_CR2_FRF                     4
+#define SPI_CR2_ERRIE                   5
+#define SPI_CR2_RXNEIE                  6
+#define SPI_CR2_TXEIE                   7
 /*
  * Bit position definitions SPI_SR
  */
